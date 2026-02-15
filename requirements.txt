@@ -1,0 +1,24 @@
+# Core dependencies for AutoFalloutShelter
+
+# Computer Vision & Image Processing
+opencv-python>=4.8.0
+pillow>=10.0.0
+pytesseract>=0.3.10
+numpy>=1.24.0
+
+# Input Automation
+pyautogui>=0.9.54
+pynput>=1.7.6
+
+# Utility
+python-dotenv>=1.0.0
+pyyaml>=6.0
+
+# Optional: Machine Learning
+# tensorflow>=2.13.0
+# scikit-learn>=1.3.0
+
+# Development
+pytest>=7.4.0
+black>=23.7.0
+flake8>=6.1.0
