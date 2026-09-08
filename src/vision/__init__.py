@@ -1,44 +1,49 @@
-"""
-Vision Module
+"""Vision package — screen capture stubs + verified dweller tracking."""
 
-Handles screen capture, image recognition, and game state detection.
-Uses computer vision techniques to understand the current state of the game.
-"""
+from src.vision.dweller_detect import (
+    detect_dwellers,
+    detect_vault_suit_blobs,
+    annotate_detections,
+)
+from src.vision.dweller_tracker import DwellerTracker, TrackerConfig
 
-import cv2
-import numpy as np
-from PIL import ImageGrab
+__all__ = [
+    "detect_dwellers",
+    "detect_vault_suit_blobs",
+    "annotate_detections",
+    "DwellerTracker",
+    "TrackerConfig",
+    "ScreenCapture",
+    "ImageRecognition",
+]
 
 
 class ScreenCapture:
     """Captures screenshots of the game window."""
-    
+
     def __init__(self):
         self.game_window = None
-    
+
     def capture(self):
         """Capture the current game screen."""
-        # TODO: Implement screen capture
-        pass
+        raise NotImplementedError(
+            "Live capture requires a running Fallout Shelter window. "
+            "Steam login is currently blocked in this environment — use "
+            "assets/screenshots or src.sim.vault_sim instead."
+        )
 
 
 class ImageRecognition:
     """Recognizes game elements in screenshots."""
-    
+
     def __init__(self):
         self.templates = {}
-    
+
     def load_templates(self, template_dir):
-        """Load reference images for template matching."""
-        # TODO: Implement template loading
-        pass
-    
+        raise NotImplementedError("Template matching not yet verified")
+
     def detect_resources(self, image):
-        """Detect resource levels (food, water, power) from image."""
-        # TODO: Implement resource detection
-        pass
-    
+        raise NotImplementedError("Resource OCR not yet verified")
+
     def detect_dwellers(self, image):
-        """Detect dweller positions and states."""
-        # TODO: Implement dweller detection
-        pass
+        return detect_dwellers(image)

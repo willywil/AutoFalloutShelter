@@ -1,60 +1,35 @@
-"""
-Strategy Module
+"""Strategy package — verified play loop for simulator; live stubs remain unsafe."""
 
-Implements game logic and decision-making algorithms.
-"""
+from src.strategy.play import play_to_win, PlayResult
 
-from typing import List, Dict
+__all__ = ["play_to_win", "PlayResult", "ResourceManager", "DwellerManager", "IncidentHandler"]
 
 
 class ResourceManager:
-    """Manages resource collection and optimization."""
-    
     def __init__(self):
-        self.thresholds = {
-            'power': 0.8,
-            'food': 0.7,
-            'water': 0.7
-        }
-    
+        self.thresholds = {"power": 0.8, "food": 0.7, "water": 0.7}
+
     def should_collect(self, resource_type, current_level):
-        """Determine if a resource should be collected."""
-        # TODO: Implement collection logic
-        pass
-    
+        return current_level >= self.thresholds.get(resource_type, 0.7)
+
     def prioritize_production(self, resources):
-        """Prioritize which resources to produce."""
-        # TODO: Implement priority logic
-        pass
+        return sorted(resources.items(), key=lambda kv: kv[1])
 
 
 class DwellerManager:
-    """Manages dweller assignments and optimization."""
-    
     def __init__(self):
         self.dwellers = []
-    
+
     def optimal_assignment(self, dweller, rooms):
-        """Find optimal room assignment for a dweller based on SPECIAL."""
-        # TODO: Implement assignment algorithm
-        # Consider dweller stats and room requirements
-        pass
-    
+        raise NotImplementedError("Live SPECIAL assignment not yet verified")
+
     def should_train(self, dweller):
-        """Determine if a dweller should be sent to training."""
-        # TODO: Implement training logic
-        pass
+        return False
 
 
 class IncidentHandler:
-    """Handles fires, radroach attacks, and other incidents."""
-    
     def detect_incident(self, game_state):
-        """Detect if there's an active incident."""
-        # TODO: Implement incident detection
-        pass
-    
+        return None
+
     def respond_to_incident(self, incident_type, location):
-        """Respond appropriately to detected incidents."""
-        # TODO: Implement response logic
-        pass
+        raise NotImplementedError("Incident response not yet verified")

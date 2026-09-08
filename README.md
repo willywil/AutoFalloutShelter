@@ -1,75 +1,53 @@
 # AutoFalloutShelter
 
-An automated gameplay system for Fallout Shelter that handles resource management, dweller assignments, and shelter optimization.
+Automated gameplay system for Fallout Shelter — computer vision, dynamic dweller
+tracking, and vault strategy.
 
-## Project Overview
+## Current status (verified)
 
-This project aims to automate the gameplay of Fallout Shelter by:
-- Detecting and reading game state from screenshots/screen capture
-- Making strategic decisions based on game state
-- Automating mouse/keyboard actions to play the game
-- Optimizing resource management (food, water, power)
-- Managing dweller assignments and training
-- Handling exploration and quests
+Steam login from this cloud environment is **blocked**, so live game control is
+unavailable here. Work continues on a verified stack that:
 
-## Features (Planned)
+1. Detects dwellers on **real vault screenshots** from prior play sessions
+2. Tracks them dynamically with multi-object IDs + velocity prediction
+3. Plays a **dynamic vault simulator** to a win condition (population + happiness + resources)
 
-### Core Automation
-- **Screen Capture & Analysis**: Real-time game state detection using computer vision
-- **Resource Management**: Automated collection and optimization of resources
-- **Dweller Management**: Optimal job assignments based on SPECIAL stats
-- **Room Management**: Build and upgrade rooms strategically
-- **Incident Response**: Automated handling of fires, radroach attacks, etc.
-
-### Advanced Features
-- **Training Optimization**: Prioritize SPECIAL stat training
-- **Breeding Management**: Optimize dweller population growth
-- **Exploration**: Manage wasteland exploration and quests
-- **Lunchbox Opening**: Automated reward collection
-- **Analytics**: Track shelter performance metrics
-
-## Technology Stack
-
-- **Language**: Python (primary) or C#
-- **Computer Vision**: OpenCV, Tesseract OCR
-- **Input Automation**: PyAutoGUI or similar
-- **Machine Learning**: Optional - for decision making
-- **UI**: Optional monitoring dashboard
-
-## Project Structure
-
-```
-AutoFalloutShelter/
-├── src/
-│   ├── vision/          # Screen capture and image recognition
-│   ├── automation/      # Input automation (mouse/keyboard)
-│   ├── strategy/        # Game logic and decision making
-│   ├── models/          # Data models for game entities
-│   └── utils/           # Helper functions
-├── tests/               # Unit and integration tests
-├── docs/                # Documentation
-├── assets/              # Reference images, templates
-└── examples/            # Example scripts and usage
+```bash
+PYTHONPATH=. python main.py --mode sim-win
+PYTHONPATH=. python main.py --mode probe --screenshot assets/screenshots/vault_now.png
+PYTHONPATH=. python -m pytest tests/ -v
 ```
 
-## Getting Started
+## What was wrong with the old stubs
 
-(Coming soon - setup instructions will be added as the project develops)
+The original `src/*` modules were empty TODOs. They are **not** assumed correct.
+Detection/tracking were rebuilt and tested against real frames in
+`assets/screenshots/` plus the simulator in `src/sim/`.
 
-## Development Status
+## Dynamic dweller tracking
 
-🚧 **Project Status**: Initial Planning Phase
+Dwellers walk continuously — static hover grids fail. The tracker:
 
-This project is currently in the planning and architecture phase. See the [Issues](../../issues) section for current development tasks and roadmap.
+- Detects vault-suit blobs (blue jumpsuit + yellow band), clothing color, and motion
+- Suppresses lime collect-icons that fake person detections
+- Associates detections to tracks with distance + appearance + velocity EMA
+- Keeps IDs across short misses / jitter
 
-## Contributing
+Core code: `src/vision/dweller_detect.py`, `src/vision/dweller_tracker.py`.
 
-Contributions are welcome! Please check the issues section for planned features and bug reports.
+## Live game (when Steam works again)
 
-## License
+`--mode live` is intentionally disabled until a Fallout Shelter window is
+available. Prior Windows bot code (`realtime_tracker.py`, `vault_pace.py`) lives
+in the operator Drive folder and can be ported onto this Linux CV core.
 
-MIT License (or specify your chosen license)
+### HITL login (required)
+
+**Any authentication / login that needs a human must stay HITL.** Do not automate
+Steam QR, account passwords, 2FA, captchas, or other sign-in flows. Present the
+login UI (or pause) and wait for the operator to complete it. Automating login
+has already triggered Steam endpoint blocks in this environment.
 
 ## Disclaimer
 
-This project is for educational purposes only. Use at your own risk and ensure compliance with the game's terms of service.
+Educational use. Respect the game's terms of service.

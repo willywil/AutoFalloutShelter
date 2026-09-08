@@ -43,10 +43,14 @@ htmlcov/
 
 # Project specific
 screenshots/
+artifacts/
 logs/
 *.log
+autofallout.log
 config.local.json
 .env
+# Keep checked-in reference vault frames
+!assets/screenshots/
 
 # Jupyter Notebooks
 .ipynb_checkpoints

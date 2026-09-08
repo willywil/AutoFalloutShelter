@@ -8,84 +8,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Initial project structure with modular architecture
-- Requirements specification document (REQUIREMENTS.md)
-- System architecture documentation (ARCHITECTURE.md)
-- Development workflow guide (WORKFLOW.md)
-- Contributing guidelines (CONTRIBUTING.md)
-- GitHub issues for development tracking (#1-#7)
-- Core module scaffolding:
-  - Vision module for computer vision
-  - Automation module for input control
-  - Strategy module for decision making
-  - Models module for data structures
-  - Utils module for cross-cutting concerns
-- Python package dependencies (requirements.txt)
-- Git configuration and repository setup
+- Verified vault-suit dweller detector + multi-object tracker (`src/vision/dweller_detect.py`, `dweller_tracker.py`)
+- Dynamic vault simulator with ground-truth dwellers (`src/sim/vault_sim.py`)
+- Play-to-win strategy loop for the simulator (`src/strategy/play.py`)
+- Real vault screenshot corpus under `assets/screenshots/` for CV regression
+- Pytest suite covering real-frame detection, ID persistence, and sim win
 
-### Repository
-- **GitHub**: [willywil/AutoFalloutShelter](https://github.com/willywil/AutoFalloutShelter)
-- **License**: MIT
+### Changed
+- `main.py` defaults to `--mode sim-win` (Steam login blocked in cloud env)
+- Stub vision/strategy APIs now raise or delegate to verified code instead of silent `pass`
+
+### Notes
+- Live Fallout Shelter via Steam is unavailable here (login endpoints blocked)
+- Prior Windows operator bot (`realtime_tracker.py` / `vault_pace.py`) remains reference in Drive
+- **HITL rule:** any login/auth (Steam QR, password, 2FA, captcha) must wait for the operator — do not automate sign-in
 
 ---
 
 ## Project Status
 
-🚧 **Current Phase**: Foundation & Planning
-
-The project is in initial planning and architecture phase. Core specifications are complete and ready for implementation.
+**Current Phase**: Verified CV foundation + simulator play loop
 
 ### Next Milestones
 
-1. **v0.1.0 - MVP (Target: March 2026)**
-   - Basic computer vision (resource detection)
-   - Simple automation (resource collection)
-   - Incident detection and response
-   - Dweller assignment
-
-2. **v0.2.0 - Enhanced Automation (Target: April 2026)**
-   - Advanced CV (room states, dweller tracking)
-   - Optimized assignment algorithms
-   - Training management
-   - Room building
-
-3. **v1.0.0 - Stable Release (Target: June 2026)**
-   - All critical and high-priority features
-   - 70%+ test coverage
-   - Complete documentation
-   - 24h+ unattended operation
-
----
-
-## Development Notes
-
-- All changes should reference GitHub issues
-- Follow [conventional commits](https://www.conventionalcommits.org/) for commit messages
-- Update this file under `[Unreleased]` section for all notable changes
-- Move changes to versioned section upon release
-
----
-
-## Template for New Entries
-
-```markdown
-## [Version] - YYYY-MM-DD
-
-### Added
-- New feature description (#issue)
-
-### Changed
-- Modified behavior description (#issue)
-
-### Deprecated
-- Soon-to-be removed feature (#issue)
-
-### Removed
-- Removed feature (#issue)
-
-### Fixed
-- Bug fix description (#issue)
-
-### Security
-- Security improvement (#issue)
-```
+1. Reconnect live game when Steam/auth path works
+2. Port Windows input layer onto Linux X11 for real vault control
+3. Improve MOT recall on crowded rooms / door queues
