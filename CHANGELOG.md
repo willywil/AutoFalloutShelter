@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Notes
 - Live Fallout Shelter via Steam is unavailable here (login endpoints blocked)
 - Prior Windows operator bot (`realtime_tracker.py` / `vault_pace.py`) remains reference in Drive
+- **HITL rule:** any login/auth (Steam QR, password, 2FA, captcha) must wait for the operator — do not automate sign-in
 
 ---
 

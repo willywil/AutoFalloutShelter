@@ -41,6 +41,13 @@ Core code: `src/vision/dweller_detect.py`, `src/vision/dweller_tracker.py`.
 available. Prior Windows bot code (`realtime_tracker.py`, `vault_pace.py`) lives
 in the operator Drive folder and can be ported onto this Linux CV core.
 
+### HITL login (required)
+
+**Any authentication / login that needs a human must stay HITL.** Do not automate
+Steam QR, account passwords, 2FA, captchas, or other sign-in flows. Present the
+login UI (or pause) and wait for the operator to complete it. Automating login
+has already triggered Steam endpoint blocks in this environment.
+
 ## Disclaimer
 
 Educational use. Respect the game's terms of service.
